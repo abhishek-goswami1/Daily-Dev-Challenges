@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>Dark Mode Toggle</h1>
+                <p>Switch between light and dark themes and keep the preference saved across reloads.</p>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-pressed="false">
+                <span class="icon">🌙</span>
+                <span class="label">Dark Mode</span>
+            </button>
+        </header>
+
+        <main class="content">
+            <section class="card">
+                <h2>Accessible theme control</h2>
+                <p>Using `aria-pressed` for assistive technology and preserving the selected theme.</p>
+            </section>
+            <section class="card">
+                <h2>Smooth transitions</h2>
+                <p>The theme changes apply with color transitions for a polished effect.</p>
+            </section>
+            <section class="card">
+                <h2>Responsive display</h2>
+                <p>The layout adapts to mobile and desktop screens for a consistent user experience.</p>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

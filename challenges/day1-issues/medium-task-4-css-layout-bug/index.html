@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Layout Bug Fix</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="layout-shell">
+        <section class="hero">
+            <h1>CSS Layout Bug Fix</h1>
+            <p>This layout demonstrates a fixed responsive card grid with proper wrapping and spacing.</p>
+        </section>
+
+        <div class="card-grid">
+            <article class="card">
+                <h2>Project planning</h2>
+                <p>Clear structure and column settings prevent content overlap on smaller screens.</p>
+            </article>
+            <article class="card">
+                <h2>Developer tasks</h2>
+                <p>Flex items are constrained with <code>min-width</code> so cards do not overflow.</p>
+            </article>
+            <article class="card">
+                <h2>Release checklist</h2>
+                <p>Responsive grid settings ensure consistent spacing and alignment across breakpoints.</p>
+            </article>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-inner">
+            <a class="brand" href="#home">Brand</a>
+            <button class="burger" id="burger" aria-expanded="false" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#work">Work</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-content">
+        <section id="home" class="hero">
+            <h1>Responsive Navbar</h1>
+            <p>Fully responsive navigation with a mobile hamburger menu and smooth layout.</p>
+        </section>
+        <section id="services" class="section">
+            <h2>Services</h2>
+            <p>Responsive navigation adapts seamlessly across desktop, tablet, and mobile screens.</p>
+        </section>
+        <section id="work" class="section">
+            <h2>Work</h2>
+            <p>Clean desktop layout with a centered menu and easy access to all sections.</p>
+        </section>
+        <section id="contact" class="section">
+            <h2>Contact</h2>
+            <p>Click a link to navigate directly to each section.</p>
+        </section>
+    </main>
+
+    <script>
+        const burger = document.getElementById('burger');
+        const navMenu = document.getElementById('nav-menu');
+
+        burger.addEventListener('click', () => {
+            const expanded = burger.getAttribute('aria-expanded') === 'true';
+            burger.setAttribute('aria-expanded', String(!expanded));
+            navMenu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                burger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+</html>

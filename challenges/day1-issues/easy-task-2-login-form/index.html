@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="login-shell">
+        <section class="login-card">
+            <h1>Sign In</h1>
+            <p>Enter your credentials to access your account.</p>
+            <form id="login-form" novalidate>
+                <label>
+                    Email
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                </label>
+                <label>
+                    Password
+                    <input type="password" id="password" name="password" placeholder="••••••••" required minlength="8">
+                </label>
+                <button type="submit">Login</button>
+                <p class="message" id="message"></p>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+:root {
+    --bg: #111827;
+    --surface: #1f2937;
+    --text: #f8fafc;
+    --accent: #60a5fa;
+    --accent-dark: #2563eb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, system-ui, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, #0f172a 0%, #111827 35%, #1e293b 100%);
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+}
+
+.demo-shell {
+    width: min(100%, 900px);
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.hero p {
+    margin: 0;
+    color: #cbd5e1;
+}
+
+.button-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.btn {
+    border: none;
+    border-radius: 999px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    box-shadow: 0 18px 40px rgba(56, 189, 248, 0.3);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-shadow {
+    background: #0f172a;
+    box-shadow: 0 25px 50px rgba(15, 23, 42, 0.4);
+    color: #f8fafc;
+}
+
+.btn-glow {
+    background: transparent;
+    border: 2px solid rgba(96, 165, 250, 0.8);
+    color: var(--accent);
+}
+
+.btn-glow:hover {
+    background: rgba(96, 165, 250, 0.12);
+    box-shadow: 0 0 25px rgba(96, 165, 250, 0.35);
+}
