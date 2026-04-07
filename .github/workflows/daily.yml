@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Daily Task
-        uses: imjohnbo/issue-bot@v3
+        uses: imjohnbo/issue-bot@v3.5
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
           assignees: "abhi001-q"
           labels: "daily-challenge, easy, good first issue"
@@ -17,7 +19,7 @@ jobs:
             Create a simple, responsive navigation bar with a logo and three links (Home, About, Contact).
             
             ### 📂 Folder Location
-            Save your solution in `challenges/easy/abhi001-q/`
+            Save your solution in `challenges/easy/your-github-username/`
             
             ---
             *Maintain your streak! Submit a PR to get featured on the leaderboard.*
