@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 6 Leaderboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="leaderboard-header">
+            <h1>🏆 Day 6 Leaderboard</h1>
+            <p>Top performers for Daily Dev Challenges</p>
+        </div>
+
+        <div class="leaderboard-controls">
+            <button id="sortByScore" class="sort-btn active">Sort by Score</button>
+            <button id="sortByTime" class="sort-btn">Sort by Time</button>
+        </div>
+
+        <div class="leaderboard-table">
+            <table id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Username</th>
+                        <th>Score</th>
+                        <th>Time (mins)</th>
+                        <th>Challenges Completed</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <h3 id="totalParticipants">0</h3>
+                <p>Total Participants</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="avgScore">0</h3>
+                <p>Average Score</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="topScore">0</h3>
+                <p>Highest Score</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

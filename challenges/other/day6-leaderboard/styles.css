@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.leaderboard-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.leaderboard-header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.leaderboard-header p {
+    font-size: 16px;
+    opacity: 0.95;
+}
+
+.leaderboard-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.sort-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    color: #667eea;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.sort-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.sort-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.leaderboard-table {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #667eea;
+    color: white;
+}
+
+th {
+    padding: 20px;
+    text-align: left;
+    font-weight: 600;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s;
+}
+
+tbody tr:hover {
+    background: #f8f9fa;
+    transform: scale(1.01);
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    padding: 18px 20px;
+    color: #333;
+}
+
+.rank {
+    font-weight: bold;
+    color: #667eea;
+    font-size: 18px;
+}
+
+.username {
+    font-weight: 600;
+    color: #333;
+}
+
+.score {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.time {
+    color: #007bff;
+}
+
+.challenges {
+    background: #e3f2fd;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    color: #1976d2;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* Top 3 special styling */
+tbody tr:nth-child(1) {
+    background: #fffbea;
+}
+
+tbody tr:nth-child(1) .rank::before {
+    content: '🥇 ';
+}
+
+tbody tr:nth-child(2) {
+    background: #f0f0f0;
+}
+
+tbody tr:nth-child(2) .rank::before {
+    content: '🥈 ';
+}
+
+tbody tr:nth-child(3) {
+    background: #ffe8d6;
+}
+
+tbody tr:nth-child(3) .rank::before {
+    content: '🥉 ';
+}
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+    font-size: 36px;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: #666;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .leaderboard-header h1 {
+        font-size: 32px;
+    }
+
+    .leaderboard-controls {
+        flex-wrap: wrap;
+    }
+
+    .sort-btn {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 15px 10px;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+
+    .rank::before {
+        margin-right: 5px;
+    }
+}
