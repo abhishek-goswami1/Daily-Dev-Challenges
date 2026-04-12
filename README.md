@@ -1,5 +1,7 @@
 # Daily-Dev-Challenges
+
 # 🤝 Contributing Guide
+
 # 🚀 Daily Dev Challenges
 
 Welcome to **Daily Dev Challenges** 👨‍💻🔥
@@ -38,6 +40,7 @@ This repo helps you stay consistent by solving **daily coding tasks** and keepin
 ## ⭐ Support
 
 If you like this project:
+
 - Star ⭐ the repo
 - Follow me
 

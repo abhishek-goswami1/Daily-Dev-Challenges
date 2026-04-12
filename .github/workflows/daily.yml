@@ -31,14 +31,21 @@ jobs:
             const challengeIssues = allIssues.data.filter(i => i.title.includes("Day"));
             const currentDay = Math.floor(challengeIssues.length / 5) + 1;
             
+            // 💡 UPDATED TASK LIST: More variety & modern tech
             const tasks = [
-              "Create responsive navbar", "Build login form", "Create button animation",
-              "Fix CSS layout bug", "Create dark mode toggle", "Build to-do app",
-              "Create REST API", "Build responsive footer", "Create modal popup",
-              "Build image gallery", "Create form validation", "Build calculator app",
-              "Create dropdown menu", "Build profile card UI", "Create search bar",
-              "Build pagination system", "Create loading spinner", "Build tab system",
-              "Create accordion UI", "Build notification system"
+              "Implement a custom React Hook (useLocalStorage)", "Build a Neumorphic UI Button", 
+              "Write a script to scrape trending GitHub repos", "Create a Glassmorphism Login Card",
+              "Design a CSS-only infinite scroll animation", "Build a URL Shortener logic",
+              "Implement a Debounce function in JavaScript", "Create a 3D Card Hover effect",
+              "Build a Markdown to HTML previewer", "Design a responsive Dashboard Sidebar",
+              "Create a JWT authentication flow simulation", "Build a Pomodoro Timer with Sound",
+              "Implement a 'Drag and Drop' file uploader", "Create a dynamic Skeleton Loader",
+              "Build a Weather App using Fetch API", "Write a regex-based Password Validator",
+              "Implement a 'Dark/Light' mode with System preference", "Build a Currency Converter",
+              "Create a Framer Motion page transition", "Implement a simple Redux-like state store",
+              "Build a Quiz app with a progress bar", "Create a custom Video Player UI",
+              "Design a Twitter/X character counter", "Implement an Image Lazy Loader",
+              "Build a Snake Game in 100 lines of JS"
             ];
 
             const startIndex = (currentDay - 1) * 5;
@@ -71,14 +78,21 @@ jobs:
             for (let i = 0; i < 5; i++) {
               const taskIndex = (startIndex + i) % tasks.length;
               const task = tasks[taskIndex];
-              const level = i < 2 ? "easy" : i < 4 ? "medium" : "hard";
+              const levels = ["EASY", "EASY", "MEDIUM", "MEDIUM", "HARD"];
+              const level = levels[i];
 
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                title: `Day ${currentDay} - ${level.toUpperCase()} Task ${i+1}: ${task}`,
-                body: `### 🧠 Day ${currentDay} Challenge\n\n**Difficulty:** ${level}\n**Task:** ${task}\n**Folder:** challenges/day-${currentDay}/your-username/\n\n🔥 Solve this to keep your streak green!`,
-                labels: ["daily-challenge", level]
+                title: `Day ${currentDay} - ${level} Task ${i+1}: ${task}`,
+                body: `### 🧠 Day ${currentDay} Challenge\n\n` +
+                      `**Difficulty:** \`${level}\`\n` +
+                      `**Task:** ${task}\n` +
+                      `**Submission Folder:** \`challenges/day-${currentDay}/your-username/\`\n\n` +
+                      `--- \n` +
+                      `🔥 **Goal:** Solve this and submit a PR to maintain your streak!\n` +
+                      `💡 **Tip:** Tag a friend in the comments to challenge them.`,
+                labels: ["daily-challenge", level.toLowerCase()]
               });
             }
 
@@ -87,6 +101,13 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `🏆 Day ${currentDay} Leaderboard`,
-              body: `## 🏆 Day ${currentDay} Leaderboard\n\nSolve today's tasks and submit a PR to see your name here! 🚀`,
+              body: `## 🏆 Day ${currentDay} Leaderboard\n\n` +
+                    `Submit your Pull Requests for today's tasks! The first three contributors to get their PR merged will be featured here.\n\n` +
+                    `| Rank | User | Task Completed |\n` +
+                    `| :--- | :--- | :--- |\n` +
+                    `| 🥇 | - | - |\n` +
+                    `| 🥈 | - | - |\n` +
+                    `| 🥉 | - | - |\n\n` +
+                    `🚀 Keep coding!`,
               labels: ["leaderboard"]
             });
