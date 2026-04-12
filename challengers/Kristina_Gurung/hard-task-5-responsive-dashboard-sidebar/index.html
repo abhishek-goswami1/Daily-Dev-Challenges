@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Dashboard Sidebar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>Dashboard</h2>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Analytics</a>
+        <a href="#">Messages</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <header>
+        <h1>Responsive Sidebar</h1>
+        <button id="toggle">Toggle Menu</button>
+      </header>
+      <section class="cards">
+        <article class="card"><h3>Sales</h3><p>Monthly revenue is up 28%.</p></article>
+        <article class="card"><h3>Users</h3><p>Active users increased by 15%.</p></article>
+        <article class="card"><h3>Messages</h3><p>New messages waiting for response.</p></article>
+      </section>
+    </main>
+  </div>
+  <script>
+    const button = document.getElementById('toggle');
+    const dashboard = document.querySelector('.dashboard');
+    button.addEventListener('click', () => {
+      dashboard.classList.toggle('sidebar-collapsed');
+    });
+  </script>
+</body>
+</html>

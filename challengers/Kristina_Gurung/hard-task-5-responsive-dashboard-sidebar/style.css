@@ -1,0 +1,25 @@
+body {margin:0; font-family: Inter,Segoe UI,Arial,sans-serif; background:#eef2f8; color:#111827;}
+.dashboard {display:flex; min-height:100vh;}
+.sidebar {width:260px; background:#1f2937; color:white; padding:28px 22px; display:flex; flex-direction:column; gap:18px;}
+.sidebar h2 {margin:0 0 1rem; font-size:1.4rem;}
+.sidebar nav a {display:block; color:#cbd5e1; text-decoration:none; margin:.7rem 0; transition:color .2s ease;}
+.sidebar nav a:hover {color:white;}
+.main-content {flex:1; padding:32px;}
+header {display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:28px;}
+button {padding:12px 18px; background:#2563eb; color:white; border:none; border-radius:12px; cursor:pointer;}
+.cards {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px;}
+.card {padding:24px; border-radius:22px; background:white; box-shadow:0 18px 40px rgba(15,23,42,0.08);}
+.card h3 {margin:0 0 12px;}
+@media (max-width: 900px) {
+  .cards {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width: 680px) {
+  .dashboard {flex-direction:column;}
+  .sidebar {width:100%; flex-direction:row; flex-wrap:wrap; justify-content:space-between;}
+  .main-content {padding:22px;}
+  .cards {grid-template-columns:1fr;}
+}
+.sidebar-collapsed .sidebar {width:72px; padding:28px 12px;}
+.sidebar-collapsed .sidebar h2,
+.sidebar-collapsed .sidebar nav a {display:none;}
+.sidebar-collapsed .main-content {margin-left:72px;}

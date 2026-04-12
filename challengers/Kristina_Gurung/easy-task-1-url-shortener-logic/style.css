@@ -1,0 +1,8 @@
+body {font-family: Arial, sans-serif; margin: 0; background: #eef2f8; color: #1d2939;}
+.app {max-width: 520px; margin: 60px auto; padding: 32px; background: white; border-radius: 16px; box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);}
+h1 {margin-bottom: 24px;}
+label {display:block; margin-bottom:8px; font-weight:600;}
+input {width:100%; padding:14px 16px; border:1px solid #cbd5e1; border-radius:10px; outline:none; margin-bottom:16px;}
+button {width:100%; background:#2563eb; color:white; border:none; border-radius:10px; padding:14px; font-weight:700; cursor:pointer;}
+button:hover {background:#1d4ed8;}
+.result {margin-top:20px; padding:18px; border-radius:12px; background:#f8fafc; border:1px solid #e2e8f0; word-break:break-all;}

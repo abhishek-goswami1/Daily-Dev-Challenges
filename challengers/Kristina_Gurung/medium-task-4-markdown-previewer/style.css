@@ -1,0 +1,8 @@
+body {margin:0; font-family: Arial, sans-serif; background:#f8fafc; color:#0f172a;}
+.container {max-width:960px; margin:40px auto; padding:30px;}
+h1 {margin-bottom:24px;}
+textarea {width:100%; min-height:240px; padding:18px; font-size:16px; border-radius:16px; border:1px solid #cbd5e1; resize:vertical;}
+.preview {margin-top:24px; padding:24px; background:white; border-radius:20px; border:1px solid #e2e8f0; min-height:220px;}
+.preview h1, .preview h2, .preview h3 {margin:12px 0;}
+.preview p {margin:10px 0; line-height:1.7;}
+.preview ul {padding-left:1.2rem;}

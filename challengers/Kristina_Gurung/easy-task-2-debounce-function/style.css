@@ -1,0 +1,6 @@
+body {font-family: Arial, sans-serif; margin: 0; min-height: 100vh; background: #f3f4f6; color: #111827;}
+.app {max-width: 540px; margin: 60px auto; padding: 32px; background: white; border-radius: 20px; box-shadow: 0 16px 40px rgba(15,23,42,0.08);}
+h1 {margin-bottom: 16px;}
+input {width: 100%; padding: 14px 16px; border: 1px solid #d1d5db; border-radius: 12px; margin-bottom: 18px; font-size: 16px;}
+.log {min-height: 120px; padding: 16px; background: #eef2ff; border-radius: 12px; border: 1px solid #c7d2fe; color: #1e3a8a;}
+.log p {margin: 0 0 10px;}

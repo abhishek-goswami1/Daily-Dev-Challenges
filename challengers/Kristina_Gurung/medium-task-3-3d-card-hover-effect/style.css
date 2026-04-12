@@ -1,0 +1,7 @@
+body {margin:0; min-height:100vh; display:grid; place-items:center; background:linear-gradient(135deg,#0f172a,#1e3a8a); font-family:'Segoe UI',sans-serif; color:#fff;}
+.scene {perspective: 1200px;}
+.card {width:320px; padding:40px; border-radius:28px; background:rgba(255,255,255,0.08); box-shadow:0 30px 80px rgba(15,23,42,0.35); backdrop-filter:blur(16px); transition: transform 0.35s ease, box-shadow 0.35s ease; transform-style: preserve-3d;}
+.card:hover {transform: rotateY(12deg) rotateX(8deg) translateZ(10px); box-shadow:0 45px 90px rgba(15,23,42,0.55);}
+.card__content {transform: translateZ(40px);}
+h1 {margin:0 0 16px; font-size:2rem;}
+p {margin:0; line-height:1.7; color:rgba(255,255,255,0.82);}
