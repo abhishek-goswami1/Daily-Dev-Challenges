@@ -1,9 +1,9 @@
-name: Daily Challenge System (Viral & Fixed)
+name: Daily Challenge System (7-Day Project Build)
 
 on:
   schedule:
     - cron: "0 3 * * *" # Runs every day at 3:00 AM
-  workflow_dispatch: # Allows you to click "Run workflow" manually
+  workflow_dispatch:
 
 jobs:
   daily-system:
@@ -12,7 +12,6 @@ jobs:
       issues: write
       contents: read
     steps:
-      # 🧠 STEP 1: Calculate Day & Create Tasks
       - name: Generate Challenges
         uses: actions/github-script@v7
         env:
@@ -20,37 +19,56 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // 1. Get all issues to calculate the current Day
             const allIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: "all"
             });
 
-            // Filter for only "Daily Challenge" issues to get an accurate day count
-            const challengeIssues = allIssues.data.filter(i => i.title.includes("Day"));
-            const currentDay = Math.floor(challengeIssues.length / 5) + 1;
-            
-            // 💡 UPDATED TASK LIST: More variety & modern tech
-            const tasks = [
-              "Implement a custom React Hook (useLocalStorage)", "Build a Neumorphic UI Button", 
-              "Write a script to scrape trending GitHub repos", "Create a Glassmorphism Login Card",
-              "Design a CSS-only infinite scroll animation", "Build a URL Shortener logic",
-              "Implement a Debounce function in JavaScript", "Create a 3D Card Hover effect",
-              "Build a Markdown to HTML previewer", "Design a responsive Dashboard Sidebar",
-              "Create a JWT authentication flow simulation", "Build a Pomodoro Timer with Sound",
-              "Implement a 'Drag and Drop' file uploader", "Create a dynamic Skeleton Loader",
-              "Build a Weather App using Fetch API", "Write a regex-based Password Validator",
-              "Implement a 'Dark/Light' mode with System preference", "Build a Currency Converter",
-              "Create a Framer Motion page transition", "Implement a simple Redux-like state store",
-              "Build a Quiz app with a progress bar", "Create a custom Video Player UI",
-              "Design a Twitter/X character counter", "Implement an Image Lazy Loader",
-              "Build a Snake Game in 100 lines of JS"
+            const challengeIssues = allIssues.data.filter(i => i.title.includes("Phase"));
+            const currentDay = (challengeIssues.length % 7) + 1;
+
+            const projectPhases = [
+              {
+                title: "Project Setup & Clean Architecture",
+                task: "Initialize your React/Vite project. Set up Tailwind CSS and create the folder structure provided in the guide.",
+                details: "Focus on clean config files (.prettierrc, tailwind.config.js)."
+              },
+              {
+                title: "The Glassmorphic Navbar",
+                task: "Build a responsive navigation bar with a glassmorphism effect (backdrop-blur).",
+                details: "Ensure it has smooth hover states for links."
+              },
+              {
+                title: "Hero Section & GSAP Entry",
+                task: "Create a cinematic Hero section. Use GSAP to animate the text entering the screen.",
+                details: "Focus on typography and white space."
+              },
+              {
+                title: "Projects Grid (Data Mapping)",
+                task: "Create a JSON file with project data and map through it to display 'Project Cards'.",
+                details: "Practice clean component reusability."
+              },
+              {
+                title: "Custom Hook & Dark Mode",
+                task: "Implement a `useTheme` custom hook to toggle between Dark and Light modes.",
+                details: "Store the preference in localStorage."
+              },
+              {
+                title: "Contact Form & Form Validation",
+                task: "Build a functional UI for a contact form with real-time regex validation.",
+                details: "Handle 'Success' and 'Error' states visually."
+              },
+              {
+                title: "Deployment & Final Polish",
+                task: "Optimize images, fix any responsive bugs, and deploy the site to Vercel or Netlify.",
+                details: "Add a 'Built by Me' footer."
+              }
             ];
 
-            const startIndex = (currentDay - 1) * 5;
+            const phase = projectPhases[currentDay - 1];
 
-            // 2. Close Yesterday's Issues
+            // 1. Close Yesterday's Issues
             const openIssues = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -58,13 +76,7 @@ jobs:
             });
 
             for (const issue of openIssues.data) {
-              if (issue.title.includes(`Day ${currentDay - 1}`)) {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  body: `## ⏳ Challenge Closed\nMove to Day ${currentDay} 🚀`
-                });
+              if (issue.title.includes(`Phase ${currentDay - 1}`)) {
                 await github.rest.issues.update({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
@@ -74,40 +86,28 @@ jobs:
               }
             }
 
-            // 3. Create 5 New Challenges
-            for (let i = 0; i < 5; i++) {
-              const taskIndex = (startIndex + i) % tasks.length;
-              const task = tasks[taskIndex];
-              const levels = ["EASY", "EASY", "MEDIUM", "MEDIUM", "HARD"];
-              const level = levels[i];
-
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: `Day ${currentDay} - ${level} Task ${i+1}: ${task}`,
-                body: `### 🧠 Day ${currentDay} Challenge\n\n` +
-                      `**Difficulty:** \`${level}\`\n` +
-                      `**Task:** ${task}\n` +
-                      `**Submission Folder:** \`challenges/day-${currentDay}/your-username/\`\n\n` +
-                      `--- \n` +
-                      `🔥 **Goal:** Solve this and submit a PR to maintain your streak!\n` +
-                      `💡 **Tip:** Tag a friend in the comments to challenge them.`,
-                labels: ["daily-challenge", level.toLowerCase()]
-              });
-            }
-
-            // 4. Create the Leaderboard
+            // 2. Create the New Phase Issue
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `🏆 Day ${currentDay} Leaderboard`,
-              body: `## 🏆 Day ${currentDay} Leaderboard\n\n` +
-                    `Submit your Pull Requests for today's tasks! The first three contributors to get their PR merged will be featured here.\n\n` +
-                    `| Rank | User | Task Completed |\n` +
-                    `| :--- | :--- | :--- |\n` +
-                    `| 🥇 | - | - |\n` +
-                    `| 🥈 | - | - |\n` +
-                    `| 🥉 | - | - |\n\n` +
-                    `🚀 Keep coding!`,
-              labels: ["leaderboard"]
+              title: `🚀 Day ${currentDay}: Phase ${currentDay} - ${phase.title}`,
+              body: `## 🔴 WARNING: NO AI CHALLENGE\n` +
+                    `> **This project is for your growth. Using AI to generate the code defeats the purpose. Try to solve logic and CSS issues using documentation and MDN.**\n\n` +
+                    `### 🛠 Phase ${currentDay} Task\n` +
+                    `**Objective:** ${phase.task}\n\n` +
+                    `**Pro Tip:** ${phase.details}\n\n` +
+                    `### 📂 Recommended Folder Structure\n` +
+                    `\`\`\`text\n` +
+                    `src/\n` +
+                    ` ├── assets/      # Images, Icons, SVGs\n` +
+                    ` ├── components/  # Reusable UI (Navbar, Button)\n` +
+                    ` ├── hooks/       # Custom React Hooks\n` +
+                    ` ├── sections/    # Page Sections (Hero, Contact)\n` +
+                    ` ├── styles/      # Global CSS\n` +
+                    ` └── App.jsx\n` +
+                    `\`\`\`\n\n` +
+                    `**Submission Folder:** \`projects/portfolio/day-${currentDay}/abhishekgoswami/\`\n` +
+                    `--- \n` +
+                    `🔥 **Goal:** Commit your progress daily to build your GitHub streak!`,
+              labels: ["7-day-challenge", `day-${currentDay}`]
             });
