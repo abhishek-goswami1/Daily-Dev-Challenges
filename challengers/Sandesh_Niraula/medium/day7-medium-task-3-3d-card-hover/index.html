@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Card Hover Effect - Day 7 Medium Task 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+            transform: rotateX(0) rotateY(0);
+        }
+
+        .card:hover .card-inner {
+            transform: rotateX(15deg) rotateY(-15deg);
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-rating {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .card-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .card-link:hover {
+            color: #764ba2;
+        }
+
+        /* Variations */
+        .card-variations {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .variations-title {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .variations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        /* Variation 1: Scale + Rotate */
+        .card-scale {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-scale:hover {
+            transform: scale(1.05) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Variation 2: Tilt */
+        .card-tilt {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-tilt:hover {
+            transform: perspective(600px) rotateX(-5deg) rotateY(-5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Variation 3: Lift */
+        .card-lift {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-lift:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .variation-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .variation-name {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .variation-desc {
+            color: #666;
+            font-size: 12px;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            display: block;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎴 3D Card Hover Effects</h1>
+            <p class="subtitle">Interactive cards with perspective and 3D transformations</p>
+        </header>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-image">🚀</div>
+                    <div class="card-content">
+                        <div class="card-title">Innovation</div>
+                        <p class="card-description">Experience cutting-edge technology and forward-thinking solutions that drive the future.</p>
+                        <div class="card-footer">
+                            <span class="card-rating">★★★★★</span>
+                            <a href="#" class="card-link">Learn →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-image">💎</div>
+                    <div class="card-content">
+                        <div class="card-title">Premium</div>
+                        <p class="card-description">Unlock exclusive features and premium content designed for discerning users.</p>
+                        <div class="card-footer">
+                            <span class="card-rating">★★★★★</span>
+                            <a href="#" class="card-link">Explore →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-image">🎨</div>
+                    <div class="card-content">
+                        <div class="card-title">Creative</div>
+                        <p class="card-description">Unleash your creativity with powerful tools and inspiring resources.</p>
+                        <div class="card-footer">
+                            <span class="card-rating">★★★★☆</span>
+                            <a href="#" class="card-link">Discover →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-image">⚡</div>
+                    <div class="card-content">
+                        <div class="card-title">Performance</div>
+                        <p class="card-description">Lightning-fast processing and optimal efficiency for maximum productivity.</p>
+                        <div class="card-footer">
+                            <span class="card-rating">★★★★★</span>
+                            <a href="#" class="card-link">Boost →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-image">🔒</div>
+                    <div class="card-content">
+                        <div class="card-title">Security</div>
+                        <p class="card-description">Military-grade encryption and robust protection for your peace of mind.</p>
+                        <div class="card-footer">
+                            <span class="card-rating">★★★★★</span>
+                            <a href="#" class="card-link">Secure →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-image">🌟</div>
+                    <div class="card-content">
+                        <div class="card-title">Excellence</div>
+                        <p class="card-description">Achieve your goals with unparalleled quality and dedicated support.</p>
+                        <div class="card-footer">
+                            <span class="card-rating">★★★★★</span>
+                            <a href="#" class="card-link">Excel →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-variations">
+            <h2 class="variations-title">3D Hover Variations</h2>
+            <div class="variations-grid">
+                <div class="card-scale">
+                    <div class="variation-icon">📈</div>
+                    <div class="variation-name">Scale + Rotate</div>
+                    <div class="variation-desc">Hover to see scaling and rotation effect</div>
+                </div>
+
+                <div class="card-tilt">
+                    <div class="variation-icon">🎯</div>
+                    <div class="variation-name">Tilt Effect</div>
+                    <div class="variation-desc">Dynamic perspective and tilt animation</div>
+                </div>
+
+                <div class="card-lift">
+                    <div class="variation-icon">✈️</div>
+                    <div class="variation-name">Lift Effect</div>
+                    <div class="variation-desc">Card lifts up with shadow effect</div>
+                </div>
+            </div>
+
+            <code>/* 3D Transform CSS */
+.card:hover {
+    transform: perspective(1000px) 
+               rotateX(15deg) 
+               rotateY(-15deg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Alternative: Scale + Rotate */
+.card-scale:hover {
+    transform: scale(1.05) rotateY(5deg);
+}
+
+/* Alternative: Lift Effect */
+.card-lift:hover {
+    transform: translateY(-15px);
+}</code>
+        </div>
+    </div>
+
+    <script>
+        // Advanced 3D effect with mouse position
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+
+                const cardInner = card.querySelector('.card-inner');
+                cardInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const cardInner = card.querySelector('.card-inner');
+                cardInner.style.transform = 'rotateX(0) rotateY(0)';
+            });
+        });
+
+        // Variations interaction
+        document.querySelectorAll('.card-scale').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateY = (centerX - x) / 30;
+                card.style.transform = `scale(1.05) rotateY(${rotateY}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1) rotateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

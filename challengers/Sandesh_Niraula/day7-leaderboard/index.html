@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - Day 7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .leaderboard {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .leaderboard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: white;
+            display: grid;
+            grid-template-columns: 60px 1fr 100px;
+            gap: 15px;
+            font-weight: 600;
+        }
+
+        .leaderboard-body {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 60px 1fr 100px;
+            gap: 15px;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.2s;
+        }
+
+        .leaderboard-row:hover {
+            background: #f9f9f9;
+        }
+
+        .leaderboard-row.top-1 {
+            background: #ffd700;
+        }
+
+        .leaderboard-row.top-1:hover {
+            background: #ffed4e;
+        }
+
+        .leaderboard-row.top-2 {
+            background: #c0c0c0;
+        }
+
+        .leaderboard-row.top-2:hover {
+            background: #e8e8e8;
+        }
+
+        .leaderboard-row.top-3 {
+            background: #cd7f32;
+        }
+
+        .leaderboard-row.top-3:hover {
+            background: #da8c38;
+        }
+
+        .rank {
+            font-weight: 700;
+            font-size: 18px;
+            text-align: center;
+            color: #333;
+        }
+
+        .leaderboard-row.top-1 .rank,
+        .leaderboard-row.top-2 .rank,
+        .leaderboard-row.top-3 .rank {
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-details h3 {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .user-details p {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .points {
+            text-align: right;
+            font-weight: 600;
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        .leaderboard-row.top-1 .points,
+        .leaderboard-row.top-2 .points,
+        .leaderboard-row.top-3 .points {
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            color: #667eea;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        @media (max-width: 600px) {
+            .leaderboard-header,
+            .leaderboard-row {
+                grid-template-columns: 50px 1fr 80px;
+                gap: 10px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏆 Day 7 Leaderboard</h1>
+            <p class="subtitle">Challenges completed - Developers ranked</p>
+        </header>
+
+        <div class="leaderboard">
+            <div class="leaderboard-header">
+                <div>Rank</div>
+                <div>Challenger</div>
+                <div>Points</div>
+            </div>
+
+            <div class="leaderboard-body">
+                <div class="leaderboard-row top-1">
+                    <div class="rank">🥇</div>
+                    <div class="user-info">
+                        <div class="avatar">AK</div>
+                        <div class="user-details">
+                            <h3>Aalvin Kumar</h3>
+                            <p>5 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">2500</div>
+                </div>
+
+                <div class="leaderboard-row top-2">
+                    <div class="rank">🥈</div>
+                    <div class="user-info">
+                        <div class="avatar">SN</div>
+                        <div class="user-details">
+                            <h3>Sandesh Niraula</h3>
+                            <p>5 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">2480</div>
+                </div>
+
+                <div class="leaderboard-row top-3">
+                    <div class="rank">🥉</div>
+                    <div class="user-info">
+                        <div class="avatar">AY</div>
+                        <div class="user-details">
+                            <h3>Ayush Yadav</h3>
+                            <p>5 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">2450</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank">4</div>
+                    <div class="user-info">
+                        <div class="avatar">BK</div>
+                        <div class="user-details">
+                            <h3>Bishwash Kafle</h3>
+                            <p>4 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">2100</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank">5</div>
+                    <div class="user-info">
+                        <div class="avatar">AT</div>
+                        <div class="user-details">
+                            <h3>Anish Tamrakar</h3>
+                            <p>4 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">2050</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank">6</div>
+                    <div class="user-info">
+                        <div class="avatar">AC</div>
+                        <div class="user-details">
+                            <h3>Ashmit Choti</h3>
+                            <p>4 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">2000</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank">7</div>
+                    <div class="user-info">
+                        <div class="avatar">JA</div>
+                        <div class="user-details">
+                            <h3>Joyal Poudel</h3>
+                            <p>3 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">1650</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank">8</div>
+                    <div class="user-info">
+                        <div class="avatar">MC</div>
+                        <div class="user-details">
+                            <h3>Manoj Chaulagain</h3>
+                            <p>3 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">1600</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank">9</div>
+                    <div class="user-info">
+                        <div class="avatar">RK</div>
+                        <div class="user-details">
+                            <h3>Ronit Kumar</h3>
+                            <p>2 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">1350</div>
+                </div>
+
+                <div class="leaderboard-row">
+                    <div class="rank">10</div>
+                    <div class="user-info">
+                        <div class="avatar">SH</div>
+                        <div class="user-details">
+                            <h3>Sneha Hamal</h3>
+                            <p>2 tasks completed</p>
+                        </div>
+                    </div>
+                    <div class="points">1300</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Challengers</div>
+                <div class="stat-value">15</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Total Tasks</div>
+                <div class="stat-value">5</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Avg Score</div>
+                <div class="stat-value">2000</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

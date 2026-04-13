@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard Sidebar - Day 7 Hard Task 5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px 0;
+            overflow-y: auto;
+            transition: transform 0.3s ease, width 0.3s ease;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.collapse {
+            width: 60px;
+        }
+
+        .sidebar.collapse .sidebar-header h2,
+        .sidebar.collapse .menu-item-text {
+            display: none;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-header .logo {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-header p {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            gap: 15px;
+        }
+
+        .menu-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding-left: 25px;
+        }
+
+        .menu-link.active {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-right: 4px solid white;
+            padding-left: 20px;
+        }
+
+        .menu-icon {
+            font-size: 20px;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .menu-item-text {
+            transition: all 0.3s;
+        }
+
+        .submenu {
+            list-style: none;
+            margin-left: 45px;
+            margin-top: 5px;
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .submenu.show {
+            display: block;
+            max-height: 300px;
+            opacity: 1;
+        }
+
+        .submenu-item {
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .submenu-item:hover {
+            color: white;
+            padding-left: 25px;
+        }
+
+        .submenu-item.active {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.sidebar-collapse {
+            margin-left: 60px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toggle-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 300px;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 13px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .page-title {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .page-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .card-meta {
+            color: #999;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content.sidebar-collapse {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                max-width: 150px;
+            }
+
+            .header {
+                flex-wrap: wrap;
+            }
+
+            .header-right {
+                flex: 1;
+                justify-content: flex-end;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">📊</div>
+                <h2>Dashboard</h2>
+                <p>Control Panel</p>
+            </div>
+
+            <ul class="menu">
+                <li class="menu-item">
+                    <a class="menu-link active" onclick="showPage('dashboard')">
+                        <span class="menu-icon">🏠</span>
+                        <span class="menu-item-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" onclick="toggleSubmenu(this)">
+                        <span class="menu-icon">📈</span>
+                        <span class="menu-item-text">Analytics</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item" onclick="showPage('analytics-overview')">Overview</li>
+                        <li class="submenu-item" onclick="showPage('analytics-reports')">Reports</li>
+                        <li class="submenu-item" onclick="showPage('analytics-metrics')">Metrics</li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" onclick="toggleSubmenu(this)">
+                        <span class="menu-icon">👥</span>
+                        <span class="menu-item-text">Users</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item" onclick="showPage('users-list')">User List</li>
+                        <li class="submenu-item" onclick="showPage('users-roles')">Roles</li>
+                        <li class="submenu-item" onclick="showPage('users-permissions')">Permissions</li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" onclick="toggleSubmenu(this)">
+                        <span class="menu-icon">⚙️</span>
+                        <span class="menu-item-text">Settings</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item" onclick="showPage('settings-general')">General</li>
+                        <li class="submenu-item" onclick="showPage('settings-security')">Security</li>
+                        <li class="submenu-item" onclick="showPage('settings-notifications')">Notifications</li>
+                    </ul>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" onclick="showPage('reports')">
+                        <span class="menu-icon">📋</span>
+                        <span class="menu-item-text">Reports</span>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a class="menu-link" onclick="showPage('help')">
+                        <span class="menu-icon">❓</span>
+                        <span class="menu-item-text">Help</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content" id="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-btn" onclick="toggleSidebar()">☰ Menu</button>
+                    <input type="text" class="search-box" placeholder="Search...">
+                </div>
+
+                <div class="header-right">
+                    <div class="notification-icon">
+                        🔔
+                        <span class="notification-badge">3</span>
+                    </div>
+
+                    <div class="user-profile">
+                        <div class="avatar">SN</div>
+                        <span>Sandesh</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content" id="content">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-description">Welcome back! Here's your dashboard overview.</p>
+
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">Total Users</div>
+                        <div class="card-value">1,234</div>
+                        <div class="card-meta">↑ 12% from last month</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">💰</div>
+                        <div class="card-title">Total Revenue</div>
+                        <div class="card-value">$45.2K</div>
+                        <div class="card-meta">↑ 8% from last month</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">📈</div>
+                        <div class="card-title">Growth Rate</div>
+                        <div class="card-value">23%</div>
+                        <div class="card-meta">↑ 5% from last month</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-title">Satisfaction</div>
+                        <div class="card-value">4.8/5</div>
+                        <div class="card-meta">Based on 512 reviews</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const content = document.getElementById('content');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('show');
+        }
+
+        function toggleSubmenu(element) {
+            const submenu = element.nextElementSibling;
+            const isOpen = submenu.classList.contains('show');
+
+            // Close all other submenus
+            document.querySelectorAll('.submenu.show').forEach(menu => {
+                menu.classList.remove('show');
+            });
+
+            // Toggle current submenu
+            if (!isOpen) {
+                submenu.classList.add('show');
+            }
+        }
+
+        function showPage(pageName) {
+            const pages = {
+                'dashboard': {
+                    title: 'Dashboard',
+                    description: 'Welcome back! Here\'s your dashboard overview.',
+                    content: getCardGrid()
+                },
+                'analytics-overview': {
+                    title: 'Analytics - Overview',
+                    description: 'Track your key metrics and performance indicators.',
+                    content: '<p>Analytics overview content will be displayed here.</p>'
+                },
+                'analytics-reports': {
+                    title: 'Analytics - Reports',
+                    description: 'Detailed reports and analysis.',
+                    content: '<p>Detailed reports will be displayed here.</p>'
+                },
+                'users-list': {
+                    title: 'User List',
+                    description: 'Manage all users in the system.',
+                    content: '<p>User list will be displayed here.</p>'
+                },
+                'reports': {
+                    title: 'Reports',
+                    description: 'Generate and view reports.',
+                    content: '<p>Reports will be displayed here.</p>'
+                },
+                'help': {
+                    title: 'Help & Support',
+                    description: 'Get help and support for using the dashboard.',
+                    content: '<p>Help content will be displayed here.</p>'
+                }
+            };
+
+            const page = pages[pageName] || pages['dashboard'];
+
+            content.innerHTML = `
+                <h1 class="page-title">${page.title}</h1>
+                <p class="page-description">${page.description}</p>
+                ${page.content}
+            `;
+
+            // Update active menu item
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.closest('.menu-link').classList.add('active');
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('show');
+            }
+        }
+
+        function getCardGrid() {
+            return `
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">Total Users</div>
+                        <div class="card-value">1,234</div>
+                        <div class="card-meta">↑ 12% from last month</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">💰</div>
+                        <div class="card-title">Total Revenue</div>
+                        <div class="card-value">$45.2K</div>
+                        <div class="card-meta">↑ 8% from last month</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📈</div>
+                        <div class="card-title">Growth Rate</div>
+                        <div class="card-value">23%</div>
+                        <div class="card-meta">↑ 5% from last month</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-title">Satisfaction</div>
+                        <div class="card-value">4.8/5</div>
+                        <div class="card-meta">Based on 512 reviews</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Close sidebar when clicking outside on small screens
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && !e.target.closest('.sidebar') && !e.target.closest('.toggle-btn')) {
+                sidebar.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

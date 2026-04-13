@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce Function - Day 7 Easy Task 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .demo-section {
+            margin-bottom: 40px;
+        }
+
+        .demo-title {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .demo-description {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .stats {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .divider {
+            height: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            display: block;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .button-group button {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏱️ Debounce Function Demo</h1>
+        <p class="subtitle">Understand how debouncing optimizes function execution</p>
+
+        <!-- Demo 1: Search Input -->
+        <div class="demo-section">
+            <div class="demo-title">Demo 1: Search Input</div>
+            <p class="demo-description">Type in the search box. Notice how the debounced version waits for you to stop typing before executing.</p>
+            
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Type to search (debounced)..."
+            >
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Input Events</div>
+                    <div class="stat-value" id="inputCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Debounced Calls</div>
+                    <div class="stat-value" id="debouncedCount">0</div>
+                </div>
+            </div>
+
+            <code>// Debounce function implementation
+function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func(...args), delay);
+    };
+}</code>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Demo 2: Window Resize -->
+        <div class="demo-section">
+            <div class="demo-title">Demo 2: Window Resize Listener</div>
+            <p class="demo-description">Resize your browser window. Check the stats to see how many times the function is called.</p>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Resize Events</div>
+                    <div class="stat-value" id="resizeCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Debounced Calls</div>
+                    <div class="stat-value" id="resizeDebouncedCount">0</div>
+                </div>
+            </div>
+
+            <p class="demo-description" style="margin-top: 15px;">
+                Window size: <strong id="windowSize"></strong>
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Demo 3: Custom Debounce Tester -->
+        <div class="demo-section">
+            <div class="demo-title">Demo 3: Custom Debounce Tester</div>
+            <p class="demo-description">Test debouncing with custom delay values.</p>
+
+            <label for="delayInput" style="display: block; color: #333; margin-bottom: 10px; font-weight: 600;">Delay (ms):</label>
+            <input 
+                type="number" 
+                id="delayInput" 
+                value="500" 
+                min="0" 
+                max="5000" 
+                step="100"
+            >
+
+            <label for="testInput" style="display: block; color: #333; margin-bottom: 10px; font-weight: 600;">Test Input:</label>
+            <input 
+                type="text" 
+                id="testInput" 
+                placeholder="Type something..."
+            >
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-label">Events</div>
+                    <div class="stat-value" id="testEventCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Executions</div>
+                    <div class="stat-value" id="testExecutionCount">0</div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button onclick="resetDebounceTester()">Reset Stats</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Debounce function implementation
+        function debounce(func, delay) {
+            let timeoutId;
+            return function(...args) {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => func(...args), delay);
+            };
+        }
+
+        // ===== DEMO 1: Search Input =====
+        let inputEventCount = 0;
+        let debouncedExecutionCount = 0;
+
+        const handleSearch = debounce((value) => {
+            debouncedExecutionCount++;
+            document.getElementById('debouncedCount').textContent = debouncedExecutionCount;
+            console.log('Search executed for:', value);
+        }, 500);
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            inputEventCount++;
+            document.getElementById('inputCount').textContent = inputEventCount;
+            handleSearch(e.target.value);
+        });
+
+        // ===== DEMO 2: Window Resize =====
+        let resizeEventCount = 0;
+        let resizeDebouncedCount = 0;
+
+        const handleResize = debounce(() => {
+            resizeDebouncedCount++;
+            document.getElementById('resizeDebouncedCount').textContent = resizeDebouncedCount;
+            updateWindowSize();
+        }, 300);
+
+        window.addEventListener('resize', () => {
+            resizeEventCount++;
+            document.getElementById('resizeCount').textContent = resizeEventCount;
+            handleResize();
+        });
+
+        function updateWindowSize() {
+            document.getElementById('windowSize').textContent = 
+                `${window.innerWidth}x${window.innerHeight}px`;
+        }
+
+        updateWindowSize();
+
+        // ===== DEMO 3: Custom Debounce Tester =====
+        let testEventCount = 0;
+        let testExecutionCount = 0;
+        let debouncedTestFunc = null;
+
+        function createDebouncedFunction() {
+            const delay = parseInt(document.getElementById('delayInput').value);
+            debouncedTestFunc = debounce(() => {
+                testExecutionCount++;
+                document.getElementById('testExecutionCount').textContent = testExecutionCount;
+            }, delay);
+        }
+
+        document.getElementById('delayInput').addEventListener('change', createDebouncedFunction);
+
+        document.getElementById('testInput').addEventListener('input', () => {
+            testEventCount++;
+            document.getElementById('testEventCount').textContent = testEventCount;
+            if (debouncedTestFunc) {
+                debouncedTestFunc();
+            }
+        });
+
+        function resetDebounceTester() {
+            testEventCount = 0;
+            testExecutionCount = 0;
+            document.getElementById('testEventCount').textContent = '0';
+            document.getElementById('testExecutionCount').textContent = '0';
+        }
+
+        createDebouncedFunction();
+    </script>
+</body>
+</html>
