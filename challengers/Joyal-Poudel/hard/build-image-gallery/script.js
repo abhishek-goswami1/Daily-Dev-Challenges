@@ -19,80 +19,100 @@ const imageApiUrl = 'https://api.unsplash.com/search/photos?';
 const apiKey = 'YOUR_UNSPLASH_API_KEY'; // Use a free API or mock data
 
 // Mock image data (for demonstration)
-const mockImages = [
-    { id: 1, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=300&fit=crop', alt: 'Mountain landscape', title: 'Mountain Landscape' },
-    { id: 2, url: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=300&h=300&fit=crop', alt: 'Ocean waves', title: 'Ocean Waves' },
-    { id: 3, url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=300&fit=crop', alt: 'Forest trees', title: 'Forest Trees' },
-    { id: 4, url: 'https://images.unsplash.com/photo-1493514789a586cb23453c3117291f58?w=300&h=300&fit=crop', alt: 'Sunset view', title: 'Sunset View' },
-    { id: 5, url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop', alt: 'Beach coast', title: 'Beach Coast' },
-    { id: 6, url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe3e?w=300&h=300&fit=crop', alt: 'Green grass field', title: 'Green Field' },
-    { id: 7, url: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=300&h=300&fit=crop', alt: 'Autumn leaves', title: 'Autumn Leaves' },
-    { id: 8, url: 'https://images.unsplash.com/photo-1426604342505-ed27cb9c0403?w=300&h=300&fit=crop', alt: 'Snowy mountains', title: 'Snowy Mountains' },
-    { id: 9, url: 'https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=300&h=300&fit=crop', alt: 'Desert sand', title: 'Desert Sand' },
-    { id: 10, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=300&fit=crop', alt: 'Starry night', title: 'Starry Night' },
-    { id: 11, url: 'https://images.unsplash.com/photo-1444080748397-f442aa95c3e5?w=300&h=300&fit=crop', alt: 'City skyline', title: 'City Skyline' },
-    { id: 12, url: 'https://images.unsplash.com/photo-1469022563149-aa64dbd37dae?w=300&h=300&fit=crop', alt: 'Purple flowers', title: 'Purple Flowers' },
-];
+// Gallery State
+let currentImages = [];
+let currentIndex = 0;
 
-// Initialize gallery
+// DOM Elements
+const filterBtns = document.querySelectorAll('.filter-btn');
+const galleryItems = document.querySelectorAll('.gallery-item');
+const lbImage = document.getElementById('lbImage');
+const lbTitle = document.getElementById('lbTitle');
+const lbCategory = document.getElementById('lbCategory');
+const lbClose = document.querySelector('.lb-close');
+const lbPrev = document.querySelector('.lb-prev');
+const lbNext = document.querySelector('.lb-next');
+
+// Initialize
 function init() {
-    allImages = mockImages;
-    filteredImages = [...allImages];
-    renderGallery();
+    setupFilters();
+    setupLightbox();
 }
 
-// Render gallery
-function renderGallery() {
-    gallery.innerHTML = '';
-    
-    if (filteredImages.length === 0) {
-        gallery.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">No images found</p>';
-        return;
-    }
+function setupFilters() {
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-    filteredImages.forEach((image, index) => {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        item.innerHTML = `
-            <img src="${image.url}" alt="${image.alt}" loading="lazy">
-            <div class="gallery-item-overlay">
-                <i class="fas fa-expand overlay-icon"></i>
-                <i class="fas fa-heart overlay-icon"></i>
-            </div>
-        `;
-        
-        item.addEventListener('click', () => openLightbox(index));
-        gallery.appendChild(item);
+            const filter = btn.dataset.filter;
+            
+            // Filter items
+            galleryItems.forEach(item => {
+                if (filter === 'all' || item.dataset.category === filter) {
+                    item.style.display = 'block';
+                    setTimeout(() => item.style.opacity = '1', 10);
+                } else {
+                    item.style.opacity = '0';
+                    setTimeout(() => item.style.display = 'none', 400);
+                }
+            });
+        });
     });
 }
 
-// Open lightbox
-function openLightbox(index) {
-    currentImageIndex = index;
-    const image = filteredImages[index];
-    lightboxImg.src = image.url;
-    lightboxCaption.textContent = image.title;
-    imageInfo.textContent = `${index + 1} of ${filteredImages.length}`;
-    lightbox.classList.add('show');
+function setupLightbox() {
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            // Update current list for navigation (only visible ones)
+            const visibleItems = Array.from(galleryItems).filter(i => i.style.display !== 'none');
+            currentImages = visibleItems.map(i => ({
+                src: i.querySelector('img').src,
+                title: i.querySelector('h3').innerText,
+                category: i.querySelector('.category-tag').innerText
+            }));
+            
+            currentIndex = currentImages.findIndex(img => img.src === item.querySelector('img').src);
+            openLightbox();
+        });
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', prevImage);
+    lbNext.addEventListener('click', nextImage);
+
+    // Close on backdrop click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'ArrowRight') nextImage();
+    });
+}
+
+function openLightbox() {
+    updateLightboxContent();
+    lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
-// Close lightbox
-function closeLightboxModal() {
-    lightbox.classList.remove('show');
-    document.body.style.overflow = 'auto';
+function nextImage() {
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    updateLightboxContent();
 }
 
-// Navigation
-function showPrevImage() {
-    currentImageIndex = (currentImageIndex - 1 + filteredImages.length) % filteredImages.length;
-    openLightbox(currentImageIndex);
+function prevImage() {
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    updateLightboxContent();
 }
 
-function showNextImage() {
-    currentImageIndex = (currentImageIndex + 1) % filteredImages.length;
-    openLightbox(currentImageIndex);
-}
+init();
 
 // Search functionality
 function handleSearch(query) {

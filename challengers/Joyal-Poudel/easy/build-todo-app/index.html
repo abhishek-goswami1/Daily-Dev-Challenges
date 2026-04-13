@@ -3,17 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App</title>
+    <title>Elite Task Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="glass-bg"></div>
     <div class="container">
-        <h1>My To-Do List</h1>
-        <div class="input-container">
-            <input type="text" id="taskInput" placeholder="Add a new task...">
-            <button id="addBtn">Add Task</button>
+        <header>
+            <h1>Focus</h1>
+            <p id="dateDisplay"></p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <span id="progressText">0% Complete</span>
         </div>
-        <ul id="taskList" class="task-list"></ul>
+
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="What needs to be done?" autocomplete="off">
+            <button id="addBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            </button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="active">Active</button>
+            <button class="filter-btn" data-filter="completed">Done</button>
+        </div>
+
+        <ul id="taskList" class="task-list scrollable">
+            <!-- Tasks will be injected here -->
+        </ul>
+
+        <footer class="app-footer">
+            <span id="itemsLeft">0 items left</span>
+            <button id="clearCompleted">Clear Completed</button>
+        </footer>
     </div>
     <script src="script.js"></script>
 </body>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounced Search | Day 7</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="text-center">
+            <div class="icon-wrap">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+            </div>
+            <h1>Smart Search</h1>
+            <p>Demonstrating JS Debounce</p>
+        </header>
+
+        <div class="glass-card main-interface">
+            <div class="search-box">
+                <i class="fa-solid fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="Type to search users..." autocomplete="off">
+                <div class="loader" id="loader"></div>
+            </div>
+
+            <div class="status-panel">
+                <div class="stat-item">
+                    <span class="label">Keystrokes:</span>
+                    <span class="value" id="keystroke-count">0</span>
+                </div>
+                <div class="stat-item highlight">
+                    <span class="label">API Calls:</span>
+                    <span class="value" id="api-call-count">0</span>
+                </div>
+            </div>
+
+            <div class="results-container" id="results-container">
+                <div class="empty-state">
+                    <i class="fa-regular fa-keyboard"></i>
+                    <p>Start typing to see results</p>
+                </div>
+                <!-- Results will be injected here -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

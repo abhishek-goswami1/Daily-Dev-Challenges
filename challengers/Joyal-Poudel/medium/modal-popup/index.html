@@ -3,48 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal Popup</title>
+    <title>Elite Modal System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Modal Popup Demo</h1>
-        
-        <div class="button-group">
-            <button id="openModal1" class="btn btn-primary">Open Basic Modal</button>
-            <button id="openModal2" class="btn btn-success">Open Confirmation Modal</button>
-            <button id="openModal3" class="btn btn-info">Open Form Modal</button>
-        </div>
-
-        <!-- Basic Modal -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <span class="close" data-modal="modal1">&times;</span>
-                <h2>Welcome!</h2>
-                <p>This is a basic modal popup. Click the X button or outside the modal to close it.</p>
-                <button class="btn btn-primary" data-modal="modal1">Close</button>
-            </div>
-        </div>
-
-        <!-- Confirmation Modal -->
-        <div id="modal2" class="modal">
-            <div class="modal-content modal-danger">
-                <span class="close" data-modal="modal2">&times;</span>
-                <h2>Confirm Action</h2>
-                <p>Are you sure you want to proceed with this action?</p>
-                <div class="modal-actions">
-                    <button class="btn btn-danger" id="confirmBtn">Confirm</button>
-                    <button class="btn btn-secondary" data-modal="modal2">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Form Modal -->
-        <div id="modal3" class="modal">
-            <div class="modal-content">
-                <span class="close" data-modal="modal3">&times;</span>
-                <h2>Subscribe</h2>
-                <form id="subscribeForm">
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <input type="text" id="name" required>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard Sidebar | Day 7</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Overlay for mobile -->
+        <div class="sidebar-overlay" id="overlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar expanded" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"><i class="ph-bold ph-hexagon"></i></div>
+                    <span class="logo-text">NexusAdmin</span>
+                </div>
+                <button class="toggle-btn" id="toggle-btn">
+                    <i class="ph ph-caret-left icon-left"></i>
+                    <i class="ph ph-list icon-menu" style="display: none;"></i>
+                </button>
+            </div>
+
+            <div class="sidebar-search">
+                <i class="ph ph-magnifying-glass"></i>
+                <input type="text" placeholder="Search..." />
+            </div>
+
+            <nav class="sidebar-nav">
+                <p class="nav-title">MAIN MENU</p>
+                
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link">
+                            <i class="ph ph-squares-four"></i>
+                            <span class="link-text">Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <i class="ph ph-chart-line-up"></i>
+                            <span class="link-text">Analytics</span>
+                            <i class="ph ph-caret-down caret"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Overview</a></li>
+                            <li><a href="#">Traffic Stats</a></li>
+                            <li><a href="#">Campaigns</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <i class="ph ph-users"></i>
+                            <span class="link-text">Customers</span>
+                            <span class="badge">12</span>
+                            <i class="ph ph-caret-down caret"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li><a href="#">All Limits</a></li>
+                            <li><a href="#">Subscribers</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="ph ph-shopping-cart"></i>
+                            <span class="link-text">E-Commerce</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <p class="nav-title mt-2">SETTINGS</p>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="ph ph-gear"></i>
+                            <span class="link-text">Preferences</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="ph ph-shield-check"></i>
+                            <span class="link-text">Security</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Joyal+Poudel&background=8b5cf6&color=fff" alt="User">
+                    <div class="user-info">
+                        <span class="user-name">Joyal Poudel</span>
+                        <span class="user-role">Super Admin</span>
+                    </div>
+                </div>
+                <button class="logout-btn" title="Logout">
+                    <i class="ph ph-sign-out"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="mobile-header">
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="ph ph-list"></i>
+                </button>
+                <div class="logo">
+                    <div class="logo-icon"><i class="ph-bold ph-hexagon"></i></div>
+                    <span class="logo-text">Nexus</span>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Joyal+Poudel&background=8b5cf6&color=fff" alt="User" class="mobile-avatar">
+            </header>
+
+            <div class="content-wrapper">
+                <h1>Dashboard Overview</h1>
+                <p class="subtitle">Welcome back, here's what's happening today.</p>
+                
+                <div class="cards-grid">
+                    <div class="glass-card">
+                        <div class="card-icon blue"><i class="ph ph-users"></i></div>
+                        <div class="card-info">
+                            <h3>Total Users</h3>
+                            <h2>24,592</h2>
+                            <span class="trend positive"><i class="ph ph-trend-up"></i> +12%</span>
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-icon purple"><i class="ph ph-currency-dollar"></i></div>
+                        <div class="card-info">
+                            <h3>Revenue</h3>
+                            <h2>$84,320</h2>
+                            <span class="trend positive"><i class="ph ph-trend-up"></i> +8%</span>
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <div class="card-icon orange"><i class="ph ph-chart-bar"></i></div>
+                        <div class="card-info">
+                            <h3>Bounce Rate</h3>
+                            <h2>42.3%</h2>
+                            <span class="trend negative"><i class="ph ph-trend-down"></i> -3%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="placeholder-content">
+                    <div class="ph-box large"></div>
+                    <div class="ph-col">
+                        <div class="ph-box small"></div>
+                        <div class="ph-box small"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

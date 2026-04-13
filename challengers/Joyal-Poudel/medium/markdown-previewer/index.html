@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Previewer | Day 7</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Marked.js for parsing Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-brands fa-markdown"></i>
+                <h1>MarkView Pro</h1>
+            </div>
+            <div class="header-actions">
+                <button id="clear-btn" class="action-btn"><i class="fa-solid fa-eraser"></i> Clear</button>
+                <button id="copy-html" class="action-btn primary"><i class="fa-solid fa-code"></i> Copy HTML</button>
+            </div>
+        </header>
+
+        <main class="split-pane">
+            <!-- Editor Pane -->
+            <section class="pane editor-pane">
+                <div class="pane-header">
+                    <span class="label">MARKDOWN</span>
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <textarea id="editor" spellcheck="false" placeholder="Start typing markdown here..."></textarea>
+            </section>
+
+            <!-- Resizer -->
+            <div class="resizer" id="resizer"></div>
+
+            <!-- Preview Pane -->
+            <section class="pane preview-pane">
+                <div class="pane-header">
+                    <span class="label">PREVIEW</span>
+                    <i class="fa-regular fa-eye"></i>
+                </div>
+                <div id="preview" class="markdown-body"></div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

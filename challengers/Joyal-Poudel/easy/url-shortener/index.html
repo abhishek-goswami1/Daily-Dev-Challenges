@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener | Day 7</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-link"></i>
+                <h1>TrimURI</h1>
+            </div>
+            <p class="subtitle">Shorten your links with style</p>
+        </header>
+
+        <section class="shortener-box glass-panel">
+            <form id="shortener-form">
+                <div class="input-group">
+                    <i class="fa-solid fa-globe input-icon"></i>
+                    <input type="url" id="url-input" placeholder="Enter your long URL here..." required autocomplete="off">
+                    <button type="submit" id="shorten-btn">
+                        <span>Shorten</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+            <div class="error-msg" id="error-msg">Please enter a valid URL.</div>
+        </section>
+
+        <section class="recent-links-section">
+            <div class="section-header">
+                <h2>Recent Links</h2>
+                <button id="clear-all" class="clear-btn"><i class="fa-solid fa-trash-can"></i> Clear</button>
+            </div>
+            <div class="links-container" id="links-container">
+                <!-- Dynamically generated links will appear here -->
+                <div class="empty-state" id="empty-state">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <p>No recently shortened URLs</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
