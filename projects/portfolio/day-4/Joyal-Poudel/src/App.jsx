@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
 import About from './sections/About'
+import Projects from './sections/Projects'
 
 function App() {
   return (
@@ -9,13 +10,7 @@ function App() {
       <Navbar />
       <Hero />
       <About />
-
-      <section id="projects" className="min-h-screen flex items-center justify-center px-6">
-        <div className="glass-card p-12 text-center max-w-xl w-full">
-          <p className="section-title text-3xl mb-4">Projects</p>
-          <p className="text-[var(--color-muted)]">Coming in Phase 5…</p>
-        </div>
-      </section>
+      <Projects />
 
       <section id="contact" className="min-h-screen flex items-center justify-center px-6">
         <div className="glass-card p-12 text-center max-w-xl w-full">
