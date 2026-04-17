@@ -77,10 +77,5 @@ document.querySelectorAll('.stat-card').forEach(card => {
 const searchBox = document.querySelector('.search-box');
 searchBox.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase();
-    if (query) {
-        console.log('Searching for:', query);
-    }
+    // Perform search operations here
 });
-
-// Console messages
-console.log('Dashboard loaded successfully! 🚀');
