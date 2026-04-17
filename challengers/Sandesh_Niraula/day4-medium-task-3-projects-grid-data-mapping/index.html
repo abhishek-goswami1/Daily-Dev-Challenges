@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Grid - Day 4 Medium Task 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>Portfolio Projects</h1>
+            <p class="subtitle">Explore our amazing collection of web development projects built with modern technologies</p>
+        </header>
+
+        <!-- Search & Filter Section -->
+        <div class="controls-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search projects by name or technology..."
+                >
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="categoryFilter">Category:</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="Web App">Web App</option>
+                        <option value="Mobile">Mobile</option>
+                        <option value="Dashboard">Dashboard</option>
+                        <option value="E-commerce">E-commerce</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="difficultyFilter">Difficulty:</label>
+                    <select id="difficultyFilter" class="filter-select">
+                        <option value="">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+
+                <button id="resetBtn" class="reset-btn">Reset Filters</button>
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-info">
+            <p>Showing <span id="resultCount">0</span> projects</p>
+        </div>
+
+        <!-- Projects Grid -->
+        <main class="projects-grid" id="projectsGrid">
+            <!-- Projects will be dynamically inserted here -->
+        </main>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-content">
+                <span class="empty-icon">📭</span>
+                <h2>No Projects Found</h2>
+                <p>Try adjusting your search or filter criteria</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -6,15 +6,39 @@ Welcome to my solutions for the Daily Dev Challenges! This folder contains a com
 
 ```
 Sandesh_Niraula/
-├── easy/          # Beginner level challenges
-├── medium/        # Intermediate level challenges
-├── hard/          # Advanced level challenges
-└── index.html     # Navigation hub (open this first!)
+├── easy/                      # Beginner level challenges
+├── medium/                    # Intermediate level challenges
+├── hard/                      # Advanced level challenges
+├── day3-hero-section-gsap/    # Day 3 Phase 3 Challenge
+├── day7-leaderboard/          # Day 7 Leaderboard
+└── index.html                 # Navigation hub (open this first!)
 ```
 
 ## 🎯 Quick Start
 
 Open **`index.html`** in your browser to access the navigation hub for all projects.
+
+---
+
+## 🎬 Day 3 Challenges
+
+### Phase 3: Hero Section & GSAP Entry
+📂 `day3-hero-section-gsap/`
+- Professional hero section with full-screen layout
+- Advanced GSAP animations (GreenSock Animation Platform)
+- Animated background shapes with continuous floating effects
+- Page load animations with timeline sequencing
+- Scroll-triggered animations with ScrollTrigger plugin
+- Interactive button animations with visual feedback
+- Parallax mouse movement effect
+- Custom notification system with animations
+- Smooth scroll-to functionality
+- Fully responsive design
+- Feature cards with scroll animations
+
+**Technologies:** HTML5, CSS3, JavaScript ES6+, GSAP 3.12.2
+**Difficulty:** Intermediate to Advanced
+**Key Skills:** GSAP animations, timeline sequencing, scroll triggers, parallax effects
 
 ---
 
